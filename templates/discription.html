@@ -1,0 +1,136 @@
+{% extends 'homepage.html' %}
+{% block content %}
+
+  <style>
+    /* General Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f7f7f7;
+      color: #333;
+    }
+
+    /* Container and Layout */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    /* Heading Style */
+    h1 {
+      color: #333;
+      font-size: 2.5rem;
+    }
+
+    /* Product Image Style */
+    .product-image {
+      width: 100%;
+      max-width: 350px;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Product Details Styling */
+    .product-details {
+      background-color: white;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      text-align: left;
+    }
+
+    .product-details h3 {
+      color: #333;
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+    }
+
+    .product-details p {
+      color: #666;
+      font-size: 1rem;
+      margin-bottom: 20px;
+    }
+
+    /* Add to Cart Button Styling */
+    .button-522 {
+      background-color: #28a745;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      display: inline-block;
+    }
+
+    .button-522:hover {
+      background-color: #218838;
+    }
+
+    /* Mobile and Tablet Adjustments */
+    @media (max-width: 768px) {
+      .col-md-6 {
+        width: 100%;
+        text-align: center;
+      }
+
+      .product-image {
+        max-width: 100%;
+        margin: 0 auto;
+      }
+
+      .product-details {
+        text-align: center;
+      }
+
+      .button-522 {
+        width: 100%;
+      }
+    }
+
+    /* Large Screens */
+    @media (max-width: 1200px) {
+      .col-md-6 {
+        width: 48%;
+      }
+    }
+  </style>
+
+<div class="container">
+    <div class="row">
+        <div class="col-12 text-center mb-4">
+            <h1><b><u>{{ items[1] }}</u></b></h1>
+        </div>
+
+        <!-- Product Image Section -->
+        <div class="col-md-6">
+            <img src="{{url_for('static', filename=items[0] + '.jpg')}}" alt="{{ items[1] }}" class="product-image"/>
+        </div>
+
+        <!-- Product Details Section -->
+        <div class="col-md-6">
+            <div class="product-details">
+                <h3><b>Description:</b></h3>
+                <p>{{ items[2] }}</p>
+
+                <h3><b>Category:</b> {{ items[4] }}</h3>
+                <h3><b>Price:</b> ${{ items[5] }}</h3>
+
+                <!-- Add to Cart Button -->
+                <form method="POST" action="{{url_for('addcart', itemid=items[0], name=items[1], category=items[2], price=items[5], image=items[0], quantity=items[3])}}">
+                    <button type="submit" class="button-522">Add to Cart</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

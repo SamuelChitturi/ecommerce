@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Page</title>
+  <style>
+    /* General Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f7f7f7;
+      color: #333;
+    }
+
+    /* Button styles */
+    .button-52 {
+      background-color: #4CAF50;
+      color: white;
+      font-size: 16px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+    }
+
+    .button-52:hover {
+      background-color: #45a049;
+    }
+
+    /* Container and Row */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: space-between;
+    }
+
+    .col-12 {
+      width: 100%;
+    }
+
+    .col-md-3 {
+      width: 23%;
+    }
+
+    /* Card Styling */
+    .carding {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+
+    .carding:hover {
+      transform: translateY(-5px);
+    }
+
+    .exploreimage {
+      border-radius: 8px;
+      object-fit: cover;
+      margin-bottom: 15px;
+    }
+
+    /* Form Styling */
+    form {
+      margin-top: 10px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+
+    .form-select {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    button[type="submit"] {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      width: 100%;
+      margin-top: 10px;
+    }
+
+    button[type="submit"]:hover {
+      background-color: #0056b3;
+    }
+
+    /* Small Screen Adjustments */
+    @media (max-width: 768px) {
+      .col-md-3 {
+        width: 48%;
+      }
+
+      .button-52 {
+        font-size: 14px;
+        padding: 8px 16px;
+      }
+    }
+
+    /* Large Screen Adjustments */
+    @media (max-width: 480px) {
+      .col-md-3 {
+        width: 100%;
+      }
+
+      .button-52 {
+        width: 100%;
+        font-size: 16px;
+        padding: 12px 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <a href="{{url_for('home1')}}"><button class="button-52">Go to home</button></a>
+  
+  <div class="container">
+    <div class="row">
+      {% for i in items %}
+      <div class="col-12 col-md-3">
+        <div class="carding p-3">
+          <a href="{{url_for('dis',itemid=i[0])}}">
+            <img src="{{url_for('static',filename=i[0]+'.jpg')}}" height="100" width="100" class="exploreimage w-100"/>
+          </a>
+          <br>
+          <label><b>Name:</b> {{i[1]}}</label><br>
+          <label><b>Available in Stock:</b> {{i[3]}}</label><br>
+          <form method="POST" action="{{url_for('pay', itemid=i[0], name=i[1], price=i[5])}}">
+            <label for="qty"><b>Quantity:</b></label>
+            <select class="form-select" name="qyt" aria-label="Select quantity">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+            </select>
+            <br>
+            <label><b>Category:</b> {{i[4]}}</label><br>
+            <label><b>Price:</b> {{i[5]}}</label><br>
+            <button type="submit">Pay</button>
+          </form>
+          <form method="POST" action="{{url_for('addcart', itemid=i[0], name=i[1], category=i[2], price=i[5], image=i[0], quantity=i[3])}}">
+            <button type="submit">Add to Cart</button>
+          </form>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+</body>
+</html>

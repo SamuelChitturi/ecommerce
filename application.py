@@ -209,7 +209,6 @@ def additems():
         return redirect(url_for('adminlogin'))
 @app.route('/homepage')
 def home1():
-    
     return render_template('homepage.html')
 @app.route('/dashboardpage')
 def dashboardpage():

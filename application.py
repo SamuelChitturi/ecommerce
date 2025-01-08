@@ -20,7 +20,7 @@ user=os.environ['RDS_USERNAME']
 password=os.environ['RDS_PASSWORD']
 host=os.environ['RDS_HOSTNAME']
 port=os.environ['RDS_PORT']
-with mysql.connector.connect(host='host', user='user', password='password', db='db') as mydb:
+with mysql.connector.connect(host=host, user=user, password=password, db=db) as mydb:
     cursor = mydb.cursor(buffered=True)
     cursor.execute("CREATE TABLE `signup` (`username` varchar(30) DEFAULT NULL,`mobile` varchar(12) DEFAULT NULL,`email` varchar(50) NOT NULL,`address` varchar(75) DEFAULT NULL,`password` text,PRIMARY KEY (`email`),UNIQUE KEY `unique_email` (`email`),KEY `email` (`email`),KEY `email_2` (`email`),KEY `idx_username` (`username`))")
     cursor.execute("CREATE TABLE adminsignup (name varchar(30) DEFAULT NULL,mobile bigint NOT NULL,email varchar(50) DEFAULT NULL,password varchar(40) DEFAULT NULL,PRIMARY KEY (mobile),UNIQUE KEY email (email))")
